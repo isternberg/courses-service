@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface CourseRepository extends CrudRepository<Course, Long>{
 
     Course findByTitle(String title);
+
 }
