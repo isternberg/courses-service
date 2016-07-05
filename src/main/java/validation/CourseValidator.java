@@ -1,21 +1,29 @@
 package validation;
+
 import model.AdvancedCourse;
+import model.Course;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CourseValidator {
 
-    List<AdvancedCourse> totalPrerequisites;
+    private List<AdvancedCourse> totalPrerequisites;
+    private Course toValidate;
 
-    public CourseValidator() {
+    public CourseValidator(Course toValidate) {
         this.totalPrerequisites = new ArrayList<>();
+        this.toValidate = toValidate;
     }
 
     public boolean validate(AdvancedCourse course) {
         List<AdvancedCourse> advancedPrerequisites = getAdvancedPrerequisites(course);
         advancedPrerequisites.forEach(this::validate);
         totalPrerequisites.addAll(advancedPrerequisites);
+        if (totalPrerequisites.contains(toValidate)){
+            //TODO
+        }
 
         return false;
     }
