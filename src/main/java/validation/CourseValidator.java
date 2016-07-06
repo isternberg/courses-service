@@ -3,35 +3,39 @@ package validation;
 import model.AdvancedCourse;
 import model.Course;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CourseValidator {
 
-    private List<AdvancedCourse> totalPrerequisites;
-    private Course toValidate;
 
-    public CourseValidator(Course toValidate) {
-        this.totalPrerequisites = new ArrayList<>();
-        this.toValidate = toValidate;
-    }
 
     public boolean validate(AdvancedCourse course) {
-        List<AdvancedCourse> advancedPrerequisites = getAdvancedPrerequisites(course);
-        advancedPrerequisites.forEach(this::validate);
-        totalPrerequisites.addAll(advancedPrerequisites);
-        if (totalPrerequisites.contains(toValidate)){
-            //TODO
-        }
-
+        List<Course> prerequisites = course.getPrerequisites();
+        doValidate(course, prerequisites);
         return false;
     }
 
-    private List<AdvancedCourse> getAdvancedPrerequisites(AdvancedCourse course) {
-        return course.getPrerequisites().stream().
-                filter(x -> x.getClass().isInstance(AdvancedCourse.class)).map(x ->(AdvancedCourse)x)
-                .collect(Collectors.toList());
+
+    private boolean doValidate(AdvancedCourse course, List<Course> prerequisites) {
+
+        if (prerequisites.contains(course)) {
+            return false;
+        }
+
+        if (!hasAdvancedPrerequisites(course)) {
+            return true;
+        }
+
+        for (Course prerequisite : prerequisites) {
+            if (course instanceof AdvancedCourse) {
+                AdvancedCourse advancedCourse = (AdvancedCourse) prerequisite;
+                if (!doValidate(course, advancedCourse.getPrerequisites())) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private boolean hasAdvancedPrerequisites(AdvancedCourse course){

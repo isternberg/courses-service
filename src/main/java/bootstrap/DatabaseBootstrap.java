@@ -25,7 +25,6 @@ public class DatabaseBootstrap implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         Teacher johnSmith = new Teacher("John", "Smith");
         // TODO:
-//        Course musicTheory = new Course("Music Theory", new BigDecimal(99.99), johnSmith);
 
 
         if(teachersRepository.findByLastname("Smith") == null){
@@ -36,6 +35,9 @@ public class DatabaseBootstrap implements InitializingBean {
 
         if(courseRepository.findByTitle("Music Theory") == null){
             Course musicTheory = new Course("Music Theory", new BigDecimal(99.99));
+            musicTheory.setTeacher(johnSmith);
+
+//            Course musicTheory = new Course("Music Theory", new BigDecimal(99.99));
             courseRepository.save(musicTheory);
             log.info("Music Theory created.");
         }

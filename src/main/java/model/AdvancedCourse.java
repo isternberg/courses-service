@@ -14,5 +14,7 @@ public class AdvancedCourse extends Course {
         return prerequisites;
     }
 
-
+    public void setPrerequisites(List<Course> prerequisites) {
+        this.prerequisites = prerequisites;
+    }
 }

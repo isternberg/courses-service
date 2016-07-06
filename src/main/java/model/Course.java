@@ -1,9 +1,8 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -17,9 +16,11 @@ public class Course {
     private BigDecimal price;
 
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="TEACHER_ID")
     private Teacher teacher;
 
+    @JsonBackReference
     public Teacher getTeacher() {
         return teacher;
     }

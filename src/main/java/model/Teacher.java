@@ -1,10 +1,8 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -20,6 +18,7 @@ public class Teacher {
 
     @Id
     @GeneratedValue
+    @Column(name="TEACHER_ID")
     private Long id;
 
     @Column
@@ -28,7 +27,7 @@ public class Teacher {
     @Column
     private String lastname;
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
     private Set<Course> courses;
 
     public Long getId() {
@@ -55,6 +54,7 @@ public class Teacher {
         this.lastname = lastname;
     }
 
+    @JsonManagedReference
     public Set<Course> getCourses() {
         return courses;
     }
