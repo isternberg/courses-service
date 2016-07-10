@@ -64,7 +64,7 @@ public class DatabaseBootstrap implements InitializingBean {
             coursesRepository.save(musicTheory);
             log.info("Music Theory created.");
         }
-        if(lecturesRepository.findByTitle("Jazz Improvisation") == null){
+        if(coursesRepository.findByTitle("Jazz Improvisation") == null){
             Course jazzImpro = new Course("Jazz Improvisation", new BigDecimal(58.99), mariaChrist);
             coursesRepository.save(jazzImpro);
             log.info("Jazz Improvisation created.");
