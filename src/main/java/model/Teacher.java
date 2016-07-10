@@ -27,8 +27,33 @@ public class Teacher {
     @Column
     private String lastname;
 
+    @JsonManagedReference
+    public Set<Lecture> getLectures() {
+        return lectures;
+    }
+
+    public void setLectures(Set<Lecture> lectures) {
+        this.lectures = lectures;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
+    private Set<Lecture> lectures;
+
+
+
+    @JsonManagedReference
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
     private Set<Course> courses;
+
+
 
     public Long getId() {
         return id;
@@ -54,12 +79,5 @@ public class Teacher {
         this.lastname = lastname;
     }
 
-    @JsonManagedReference
-    public Set<Course> getCourses() {
-        return courses;
-    }
 
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
-    }
 }

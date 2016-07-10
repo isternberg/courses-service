@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+
 @Component
-public class CourseValidator {
+public class CoursesValidator {
 
 
 
@@ -44,3 +45,4 @@ public class CourseValidator {
                 AdvancedCourse).count() > 0;
     }
 }
+
