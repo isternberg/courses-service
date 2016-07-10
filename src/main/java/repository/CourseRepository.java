@@ -1,15 +1,14 @@
 package repository;
 
 import model.Course;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository // // FIXME: why searching doesnt work?
-//public interface CourseRepository extends PagingAndSortingRepository<Course, Long> {
-public interface CourseRepository extends CrudRepository<Course, Long> {
+// // FIXME: why searching doesnt work?
+
+public interface CourseRepository extends PagingAndSortingRepository<Course, Long> {
 
     Course findByTitle(String title);
 

@@ -31,7 +31,6 @@ public class CourseValidatorTest {
         course.setPrerequisites(Arrays.asList(prerequisites));
         return course;
     }
-
     @Test
     public void shouldReturnFalseIfContainsCyclicDependency(){
         Course c1 = C("foo", 23.23);
@@ -43,4 +42,24 @@ public class CourseValidatorTest {
         assertThat(courseValidator.validate(c3), is(false));
         assertThat(courseValidator.validate(c3), is(false));
     }
+
+    @Test
+    public void shouldReturnFalseIfDependDirectlyOnEachOther(){
+        AdvancedCourse c1 = A("adv1", 42.0);
+        AdvancedCourse c2 = A("adv2", 52.0);
+        c1.setPrerequisites(Arrays.asList(c2));
+        c2.setPrerequisites(Arrays.asList(c1));
+        assertThat(courseValidator.validate(c1), is(false));
+        assertThat(courseValidator.validate(c2), is(false));
+    }
+
+    @Test
+    public void shouldReturnTrueWhenPrerequisitesValid(){
+        Course c1 = C("basic1", 23.23);
+        AdvancedCourse c2 = A("adv1", 42.0,c1);
+        AdvancedCourse c3 = A("adv2", 41.0, c2);
+        assertThat(courseValidator.validate(c2), is(true));
+        assertThat(courseValidator.validate(c3), is(true));
+    }
+
 }

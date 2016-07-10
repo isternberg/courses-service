@@ -2,17 +2,18 @@ package validation;
 
 import model.AdvancedCourse;
 import model.Course;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class CourseValidator {
 
 
 
     public boolean validate(AdvancedCourse course) {
         List<Course> prerequisites = course.getPrerequisites();
-        doValidate(course, prerequisites);
-        return false;
+        return doValidate(course, prerequisites);
     }
 
 
@@ -27,7 +28,7 @@ public class CourseValidator {
         }
 
         for (Course prerequisite : prerequisites) {
-            if (course instanceof AdvancedCourse) {
+            if (prerequisite instanceof AdvancedCourse) {
                 AdvancedCourse advancedCourse = (AdvancedCourse) prerequisite;
                 if (!doValidate(course, advancedCourse.getPrerequisites())) {
                     return false;
@@ -39,7 +40,7 @@ public class CourseValidator {
     }
 
     private boolean hasAdvancedPrerequisites(AdvancedCourse course){
-        return course.getPrerequisites().stream().filter(x -> x.getClass()
-                .isInstance(AdvancedCourse.class)).count() > 0;
+        return course.getPrerequisites().stream().filter(x-> x instanceof
+                AdvancedCourse).count() > 0;
     }
 }

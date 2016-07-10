@@ -1,9 +1,8 @@
 package repository;
 
 import model.Teacher;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-//public interface TeachersRepository extends PagingAndSortingRepository<Teacher, Long> {
-public interface TeachersRepository extends CrudRepository<Teacher, Long> {
+public interface TeachersRepository extends PagingAndSortingRepository<Teacher, Long> {
     Teacher findByLastname(String lastname);
 }
