@@ -4,3 +4,7 @@
 
 # Maven
 target/
+.mvn/
+
+*~
+*.log
