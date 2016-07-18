@@ -1,12 +1,16 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Inheritance
+@Data
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="type",discriminatorType=DiscriminatorType.STRING)
+@DiscriminatorValue(value="course")
 public class Course {
 
     @Id
@@ -36,10 +40,6 @@ public class Course {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
     public Course(String title, BigDecimal price) {
         this.title = title;
         this.price = price;
@@ -54,12 +54,16 @@ public class Course {
     public Course() {
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
+//    public void setTeacher(Teacher teacher) {
+//        this.teacher = teacher;
+//    }
+//
+//    public String getTitle() {
+//        return title;
+//    }
+//
+//    public void setTitle(String title) {
+//        this.title = title;
+//    }
 
 }

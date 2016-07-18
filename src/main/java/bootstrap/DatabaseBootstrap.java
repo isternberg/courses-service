@@ -11,7 +11,8 @@ import repository.CoursesRepository;
 import repository.TeachersRepository;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseBootstrap implements InitializingBean {
 
@@ -44,9 +45,8 @@ public class DatabaseBootstrap implements InitializingBean {
 
 
 
-
-
         Course musicTheory = coursesRepository.findByTitle("Music Theory");
+        List<Course> prerequisites = new ArrayList<>();
         if(musicTheory == null){
             musicTheory = new Course("Music Theory", new BigDecimal(99.99));
             musicTheory.setTeacher(johnSmith);
@@ -60,9 +60,10 @@ public class DatabaseBootstrap implements InitializingBean {
             log.info("Jazz Improvisation created.");
         }
 
+        prerequisites.add(musicTheory);
         if(coursesRepository.findByTitle("Modal Harmony") == null){
-            Course modalHramony = new AdvancedCourse("JModal Harmony", new BigDecimal(158.99),
-                    mariaChrist, Arrays.asList(musicTheory));
+            Course modalHramony = new AdvancedCourse("Modal Harmony", new BigDecimal(158.99),
+                    mariaChrist, prerequisites);
             coursesRepository.save(modalHramony);
             log.info("Modal Harmony created.");
         }
