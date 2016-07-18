@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@Inheritance
 public class Course {
 
     @Id
@@ -26,7 +27,7 @@ public class Course {
     private BigDecimal price;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name="TEACHER_ID")
     private Teacher teacher;
 

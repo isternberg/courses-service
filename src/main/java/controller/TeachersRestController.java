@@ -15,7 +15,7 @@ import service.TeachersService;
 
 @RestController
 @EnableAutoConfiguration
-@EnableJpaRepositories("repository") //TODO: KANN WAHRSCHEINLICH WEG!!!
+@EnableJpaRepositories("repository")
 @EntityScan("model")
 @RequestMapping("/teachers")
 @ComponentScan

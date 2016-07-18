@@ -1,25 +1,23 @@
 package bootstrap;
 
+import model.AdvancedCourse;
 import model.Course;
-import model.Lecture;
 import model.Teacher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import repository.CoursesRepository;
-import repository.LecturesRepository;
 import repository.TeachersRepository;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 public class DatabaseBootstrap implements InitializingBean {
 
     @Autowired
     TeachersRepository teachersRepository;
 
-    @Autowired
-    LecturesRepository lecturesRepository;
 
 
     @Autowired
@@ -45,31 +43,29 @@ public class DatabaseBootstrap implements InitializingBean {
         }
 
 
-        if(lecturesRepository.findByTitle("Music Theory") == null){
-            Lecture musicTheory = new Lecture("Music Theory", new BigDecimal(99.99));
-            musicTheory.setTeacher(johnSmith);
-            lecturesRepository.save(musicTheory);
-            log.info("Music Theory created.");
-        }
-        if(lecturesRepository.findByTitle("Jazz Improvisation") == null){
-            Lecture jazzImpro = new Lecture("Jazz Improvisation", new BigDecimal(58.99), mariaChrist);
-            lecturesRepository.save(jazzImpro);
-            log.info("Jazz Improvisation created.");
-        }
 
 
-        if(coursesRepository.findByTitle("Music Theory") == null){
-            Course musicTheory = new Course("Music Theory", new BigDecimal(99.99));
+
+        Course musicTheory = coursesRepository.findByTitle("Music Theory");
+        if(musicTheory == null){
+            musicTheory = new Course("Music Theory", new BigDecimal(99.99));
             musicTheory.setTeacher(johnSmith);
             coursesRepository.save(musicTheory);
             log.info("Music Theory created.");
         }
+
         if(coursesRepository.findByTitle("Jazz Improvisation") == null){
             Course jazzImpro = new Course("Jazz Improvisation", new BigDecimal(58.99), mariaChrist);
             coursesRepository.save(jazzImpro);
             log.info("Jazz Improvisation created.");
         }
 
+        if(coursesRepository.findByTitle("Modal Harmony") == null){
+            Course modalHramony = new AdvancedCourse("JModal Harmony", new BigDecimal(158.99),
+                    mariaChrist, Arrays.asList(musicTheory));
+            coursesRepository.save(modalHramony);
+            log.info("Modal Harmony created.");
+        }
 
 
         log.info("Bootstrapping finished.");

@@ -27,17 +27,7 @@ public class Teacher {
     @Column
     private String lastname;
 
-    @JsonManagedReference
-    public Set<Lecture> getLectures() {
-        return lectures;
-    }
 
-    public void setLectures(Set<Lecture> lectures) {
-        this.lectures = lectures;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
-    private Set<Lecture> lectures;
 
 
 
