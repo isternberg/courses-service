@@ -15,7 +15,7 @@ Querying i.e.:
 http://localhost:8080/courses/search/findByTitleContaining?title=Jazz
 ```
 
-Showing a partial view of a resource, using projection i.e.:
+Showing a partial view of the resources, using projection i.e.:
 
 ```
 http://localhost:8080/courses?projection=minimal
