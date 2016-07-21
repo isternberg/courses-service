@@ -9,13 +9,13 @@ http://localhost:8080
 ```
 
 ### Features
-Querying i.e.:
+Querying:
 
 ```
 http://localhost:8080/courses/search/findByTitleContaining?title=Jazz
 ```
 
-Showing a partial view of the resources, using projection i.e.:
+Showing a partial view of the resources, using projection:
 
 ```
 http://localhost:8080/courses?projection=minimal
