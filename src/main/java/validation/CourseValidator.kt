@@ -31,6 +31,4 @@ class CourseValidator {
             course !in allCourses.
                     filterIsInstance(AdvancedCourse::class.java).
                     flatMap { it.prerequisites }
-
-
 }

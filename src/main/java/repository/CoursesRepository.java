@@ -10,9 +10,5 @@ public interface CoursesRepository extends PagingAndSortingRepository<Course, Lo
 
     Course findByTitle(String course);
 
-    /**
-     * For Example:
-     * http://localhost:8080/courses/search/findByTitleContaining?title=Jazz
-     */
     List<Course> findByTitleContaining(@Param("title") String title);
 }

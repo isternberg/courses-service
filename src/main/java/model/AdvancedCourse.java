@@ -1,14 +1,12 @@
 package model;
 
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue(value="advanced_course")
 public class AdvancedCourse extends Course {
     public AdvancedCourse(String title, BigDecimal price, Teacher teacher, List<Course> prerequisites) {
         super(title, price, teacher);

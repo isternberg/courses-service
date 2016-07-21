@@ -5,10 +5,4 @@ public class IllegalCourseDeleteException extends RuntimeException {
         super(message);
     }
 
-    public IllegalCourseDeleteException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public IllegalCourseDeleteException() {
-    }
 }

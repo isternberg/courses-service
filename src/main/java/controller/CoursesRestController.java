@@ -9,7 +9,6 @@ import model.Course;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -23,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-@EnableAutoConfiguration
 @EnableJpaRepositories("repository")
 @EntityScan("model")
 @RequestMapping("/courses")
@@ -46,7 +44,6 @@ public class CoursesRestController {
     }
 
 
-    //TODO: check
     @RequestMapping(value="/{id}", method = RequestMethod.GET)
     public Course read(@PathVariable(value = "id") Long id){
         Course course = service.read(id);
@@ -63,7 +60,6 @@ public class CoursesRestController {
         return new ResponseEntity<>(course, HttpStatus.CREATED);
     }
 
-    //TODO: what happens when deleting a perquisite?
     @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Course> delete(@PathVariable(value = "id") Long id){
 
@@ -81,7 +77,7 @@ public class CoursesRestController {
     public ResponseEntity<Course> update(@PathVariable(value = "id") Long id,
                                           @RequestBody Course course){
 		if (course instanceof AdvancedCourse && !validator.mayAdd((AdvancedCourse) course)){
-			throw new CyclicRequirementException();
+			throw new CyclicRequirementException("a course may not be a requirement for itself.");
 		}
         service.update(id, course);
         return new ResponseEntity<>(HttpStatus.OK);

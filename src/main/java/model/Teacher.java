@@ -1,13 +1,13 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Data
 public class Teacher {
 
     public Teacher() {
@@ -23,16 +23,18 @@ public class Teacher {
     @Column(name="TEACHER_ID")
     private Long id;
 
-    private String firstname;
+    @Getter @Setter private String firstname;
 
-    private String lastname;
+    @Getter @Setter private String lastname;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
+    @Setter private Set<Course> courses;
 
     @JsonManagedReference
     public Set<Course> getCourses() {
         return courses;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
-    private Set<Course> courses;
+
 
 }

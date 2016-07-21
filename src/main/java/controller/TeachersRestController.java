@@ -4,7 +4,6 @@ import model.Teacher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import service.TeachersService;
 
 @RestController
-@EnableAutoConfiguration
 @EnableJpaRepositories("repository")
 @EntityScan("model")
 @RequestMapping("/teachers")
